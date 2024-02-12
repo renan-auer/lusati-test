@@ -1,5 +1,6 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, ManyToMany, column, manyToMany,  } from '@ioc:Adonis/Lucid/Orm'
+import Group from './Group'
+
 
 export default class Contact extends BaseModel {
   @column({ isPrimary: true })
@@ -17,12 +18,13 @@ export default class Contact extends BaseModel {
   @column()
   public stAtivo: boolean
 
-  @column.dateTime({autoCreate: true})
-  public createdAt: DateTime
+  @manyToMany(() => Group, {
+    pivotTable: 'contatos_grupocontatos',  
+    pivotForeignKey: 'contato_id',
+    pivotRelatedForeignKey: 'grupocontato_id'
+  })
+  public grupos: ManyToMany<typeof Group>
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
-  
   static get table() {
     return 'contatos'
   }

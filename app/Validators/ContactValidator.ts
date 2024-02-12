@@ -8,7 +8,7 @@ export default class ContactValidator {
     dsContato: schema.string(),
     nrCelular: schema.string(),
     dsEmail: schema.string(),
-    stAtivo: schema.boolean(),
+    stAtivo: schema.boolean()
   })
 
   public messages: CustomMessages = {}
